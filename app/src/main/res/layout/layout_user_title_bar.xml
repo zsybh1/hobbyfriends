@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabInvitation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的邀请" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabTopic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的帖子" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabJoined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我参与的" />
+
+    </com.google.android.material.tabs.TabLayout>
+</FrameLayout>

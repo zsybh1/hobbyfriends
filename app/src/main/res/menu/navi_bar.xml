@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/messageFragment"
+        android:title="私信" />
+    <item
+        android:id="@+id/inviteFragment"
+        android:title="邀请" />
+    <item
+        android:id="@+id/topicFragment"
+        android:title="校友圈" />
+    <item
+        android:id="@+id/userFragment"
+        android:title="我" />
+</menu>
