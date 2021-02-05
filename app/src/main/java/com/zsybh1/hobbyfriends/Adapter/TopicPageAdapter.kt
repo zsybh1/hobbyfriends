@@ -13,11 +13,11 @@ class TopicPageAdapter(private val fragment: Fragment, private val headers: List
     override fun getItemCount(): Int = headers.size
 
     override fun onBindViewHolder(holder: TopicHeaderViewHolder, position: Int) {
-        holder.bind(headers[position])
+        holder.bind(headers[position], fragment)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicHeaderViewHolder {
         val root = fragment.layoutInflater.inflate(R.layout.item_topic_header, parent, false)
-        return TopicHeaderViewHolder(fragment, root)
+        return TopicHeaderViewHolder(root)
     }
 }

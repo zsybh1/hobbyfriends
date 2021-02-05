@@ -1,15 +1,17 @@
 package com.zsybh1.hobbyfriends.Holder
 
+import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Model.Topic
+import com.zsybh1.hobbyfriends.Topic.TopicActivity
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.item_topic_header.view.*
 
-class TopicHeaderViewHolder(private val fragment: Fragment, private val view : View) : RecyclerView.ViewHolder(view){
-    fun bind(data:Topic){
+class TopicHeaderViewHolder(private val view : View) : RecyclerView.ViewHolder(view){
+    fun bind(data:Topic, fragment: Fragment){
         view.tvTitle.visibility = View.GONE
         view.imPicture.visibility = View.GONE
 
@@ -28,5 +30,11 @@ class TopicHeaderViewHolder(private val fragment: Fragment, private val view : V
             BitmapUtil.display(view.imPicture, data.imgUrl[0])
         }
         BitmapUtil.display(view.imProfile, data.headImg)
+
+        view.setOnClickListener {
+            val intent = Intent(fragment.context, TopicActivity::class.java)
+            intent.putExtra("topicId", data.id)
+            fragment.startActivity(intent)
+        }
     }
 }

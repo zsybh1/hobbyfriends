@@ -35,7 +35,7 @@ class CommentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) 
         if (data.subComments.isNotEmpty()) {
             view.replyLayout.visibility = View.VISIBLE
             view.replyLayout.setOnClickListener {
-                val viewpager = fragment.vpTopic
+                val viewpager = fragment.requireActivity().vpTopic
                 while ((viewpager.adapter as VpTopicAdapter).fragments.size >= 2)
                     (viewpager.adapter as VpTopicAdapter).delFragment()
                 (viewpager.adapter as VpTopicAdapter).addFragment(
