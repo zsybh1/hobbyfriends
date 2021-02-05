@@ -18,6 +18,12 @@ import java.time.format.DateTimeFormatter
 class CommentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(data: Comment, fragment:Fragment, topicId: Long) {
         BitmapUtil.display(view.imProfile, data.headImg)
+        view.replyLayout.visibility = View.GONE
+        view.tvReply1.visibility = View.GONE
+        view.tvReply2.visibility = View.GONE
+        view.tvReply3.visibility = View.GONE
+        view.tvMore.visibility = View.GONE
+
         view.tvUsername.text = data.username
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val time = LocalDateTime.parse(data.sendDate, formatter)
