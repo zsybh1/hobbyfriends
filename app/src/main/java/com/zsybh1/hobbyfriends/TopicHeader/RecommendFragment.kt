@@ -7,12 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.scwang.smart.refresh.footer.BallPulseFooter
+import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.Adapter.TopicPageAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_recommend.*
+import kotlinx.android.synthetic.main.fragment_time.*
+import kotlin.concurrent.thread
 
 class RecommendFragment : Fragment() {
     private lateinit var viewModel: TopicHeaderViewModel
+    private lateinit var adapter: TopicPageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +33,38 @@ class RecommendFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(TopicHeaderViewModel::class.java)
 
+        adapter = TopicPageAdapter(this, viewModel.dataListRecommend)
         rvRecommendHeaders.layoutManager = LinearLayoutManager(this.activity)
-        rvRecommendHeaders.adapter = TopicPageAdapter(this, viewModel.getHeadersByRecommend())
+        rvRecommendHeaders.adapter = adapter
+        refreshRecommend
+            .setRefreshHeader(MaterialHeader(this.context))
+            .setRefreshFooter(BallPulseFooter(this.context))
+            .setEnableLoadMore(true)
+            .setEnableLoadMoreWhenContentNotFull(false)
+            .setOnRefreshListener { onRefresh() }
+            .setOnLoadMoreListener { onLoadMore() }
+            .autoRefresh()
     }
+    private fun onRefresh() {
+        thread {
+            viewModel.getHeadersByRecommend(0)
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshRecommend.finishRefresh()
+            }
+        }
+    }
+
+    private fun onLoadMore() {
+        thread {
+            viewModel.getHeadersByRecommend()
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshRecommend.finishLoadMore()
+            }
+        }
+    }
+
     companion object {
 
         fun newInstance() = RecommendFragment()

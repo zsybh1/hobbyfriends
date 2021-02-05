@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.scwang.smart.refresh.footer.BallPulseFooter
+import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.R
 import com.zsybh1.hobbyfriends.Adapter.TopicPageAdapter
 import kotlinx.android.synthetic.main.fragment_my_topic.*
+import kotlinx.android.synthetic.main.fragment_time.*
+import kotlin.concurrent.thread
 
 class MyTopicFragment : Fragment() {
 
@@ -18,6 +22,7 @@ class MyTopicFragment : Fragment() {
     }
 
     private lateinit var viewModel: UserViewModel
+    private lateinit var adapter: TopicPageAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,8 +35,36 @@ class MyTopicFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        adapter = TopicPageAdapter(this, viewModel.dataListTopic)
         rvMyTopic.layoutManager = LinearLayoutManager(this.context)
-        rvMyTopic.adapter = TopicPageAdapter(this, viewModel.getTopic(123)) //TODO: 获得自己的用户id
+        rvMyTopic.adapter = adapter
+        refreshMyTopic
+            .setRefreshHeader(MaterialHeader(this.context))
+            .setRefreshFooter(BallPulseFooter(this.context))
+            .setEnableLoadMore(true)
+            .setEnableLoadMoreWhenContentNotFull(false)
+            .setOnRefreshListener { onRefresh() }
+            .setOnLoadMoreListener { onLoadMore() }
+            .autoRefresh()
+    }
+    private fun onRefresh() {
+        thread {
+            viewModel.getTopic(123, 0)
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshMyTopic.finishRefresh()
+            }
+        }
+    }
+
+    private fun onLoadMore() {
+        thread {
+            viewModel.getTopic(123)
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshMyTopic.finishLoadMore()
+            }
+        }
     }
 
 }

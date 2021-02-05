@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.scwang.smart.refresh.footer.BallPulseFooter
+import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.Adapter.TopicDetailAdapter
 import com.zsybh1.hobbyfriends.R
+import kotlinx.android.synthetic.main.fragment_invite.*
 import kotlinx.android.synthetic.main.fragment_topic_detail.*
+import kotlin.concurrent.thread
 
 class TopicDetailFragment(private val topicId: Long) : Fragment() {
 
@@ -18,6 +22,7 @@ class TopicDetailFragment(private val topicId: Long) : Fragment() {
     }
 
     private lateinit var viewModel: TopicDetailViewModel
+    private lateinit var adapter : TopicDetailAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,8 +36,36 @@ class TopicDetailFragment(private val topicId: Long) : Fragment() {
         viewModel = ViewModelProvider(this).get(TopicDetailViewModel::class.java)
         viewModel.topicId = topicId
 
+        adapter = TopicDetailAdapter(this, viewModel.dataList)
         rvTopic.layoutManager = LinearLayoutManager(this.context)
-        rvTopic.adapter = TopicDetailAdapter(this, viewModel.getTopic())
+        rvTopic.adapter = adapter
+        refreshTopic
+            .setRefreshHeader(MaterialHeader(this.context))
+            .setRefreshFooter(BallPulseFooter(this.context))
+            .setEnableLoadMore(true)
+            .setEnableLoadMoreWhenContentNotFull(false)
+            .setOnRefreshListener { onRefresh() }
+            .setOnLoadMoreListener { onLoadMore() }
+            .autoRefresh()
     }
 
+    private fun onRefresh() {
+        thread {
+            viewModel.getTopic()
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshTopic.finishRefresh()
+            }
+        }
+    }
+
+    private fun onLoadMore() {
+        thread {
+            viewModel.getTopic()
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshTopic.finishLoadMore()
+            }
+        }
+    }
 }

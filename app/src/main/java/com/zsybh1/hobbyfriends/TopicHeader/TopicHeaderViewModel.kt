@@ -6,15 +6,27 @@ import com.zsybh1.hobbyfriends.Model.Topic
 import com.zsybh1.hobbyfriends.Topic.TopicDetailViewModel
 
 class TopicHeaderViewModel : ViewModel() {
-    fun getHeadersByTime() : List<Topic>{
+    val dataListRecommend= mutableListOf<Topic>()
+    val dataListTime= mutableListOf<Topic>()
+    var pageTime:Int = 0
+    var pageRecommend:Int = 0
+    fun getHeadersByTime(page : Int = pageTime){
+        if (page == 0) {
+            dataListTime.clear()
+            pageTime = 0
+        }
+        pageTime++
         // TODO: 发送请求，获取json并解析
-        val headers = mutableListOf<Topic>()
-        headers.add(TopicDetailViewModel().getTopic())
-        return headers.toList()
+        dataListTime.add(TopicDetailViewModel().apply { getTopic() }.dataList[0] as Topic)
     }
 
-    fun getHeadersByRecommend() : List<Topic>{
+    fun getHeadersByRecommend(page: Int = pageRecommend){
+        if (page == 0) {
+            dataListRecommend.clear()
+            pageRecommend = 0
+        }
+        pageRecommend++
         // TODO: 发送请求，获取json并解析
-        return getHeadersByTime()
+        dataListRecommend.add(TopicDetailViewModel().apply { getTopic() }.dataList[0] as Topic)
     }
 }

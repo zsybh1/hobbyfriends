@@ -7,11 +7,11 @@ import com.zsybh1.hobbyfriends.Holder.CommentDetailViewHolder
 import com.zsybh1.hobbyfriends.Model.Comment
 import com.zsybh1.hobbyfriends.R
 
-class CommentDetailAdapter(private val fragment: Fragment, private val comment: Comment) : RecyclerView.Adapter<CommentDetailViewHolder>() {
-    override fun getItemCount(): Int = comment.subComments.size + 1
+class CommentDetailAdapter(private val fragment: Fragment, private val dataList: List<Comment>) : RecyclerView.Adapter<CommentDetailViewHolder>() {
+    override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: CommentDetailViewHolder, position: Int) {
-        holder.bind(if (position == 0) comment else comment.subComments[position - 1])
+        holder.bind(dataList[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentDetailViewHolder {

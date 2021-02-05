@@ -5,12 +5,17 @@ import com.google.gson.Gson
 import com.zsybh1.hobbyfriends.Model.Comment
 
 class CommentViewModel : ViewModel() {
+    val dataList = mutableListOf<Comment>()
+
     var topicId = 0L
     var commentId = 0L
 
-    fun getComment() : Comment {
-        val Comment = Gson().fromJson(getCommentFromNet(), Comment::class.java)
-        return Comment
+    fun getComment(){
+        dataList.clear()
+        dataList.add(Gson().fromJson(getCommentFromNet(), Comment::class.java))
+        for (comment in dataList[0].subComments) {
+            dataList.add(comment)
+        }
     }
 
     fun getCommentFromNet() :String{

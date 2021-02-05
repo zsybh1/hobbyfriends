@@ -16,6 +16,9 @@ import kotlinx.android.synthetic.main.item_topic_detail.view.tvUsername
 
 class TopicDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(view){
     fun bind(header: Topic) {
+        view.tvTitle.visibility = View.GONE
+        view.imageLayout.visibility = View.GONE
+        view.imageLayout.removeAllViews()
         BitmapUtil.display(view.imProfile, header.headImg)
         view.tvUsername.text = header.username
 

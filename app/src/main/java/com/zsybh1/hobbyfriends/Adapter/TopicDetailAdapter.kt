@@ -6,16 +6,18 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Holder.CommentViewHolder
 import com.zsybh1.hobbyfriends.Holder.TopicDetailViewHolder
+import com.zsybh1.hobbyfriends.Model.Comment
 import com.zsybh1.hobbyfriends.Model.Topic
 import com.zsybh1.hobbyfriends.R
 
-class TopicDetailAdapter(private val fragment: Fragment, private val topic: Topic) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    override fun getItemCount(): Int = topic.comments.size + 1
+class TopicDetailAdapter(private val fragment: Fragment, private val dataList: List<Any>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d(TAG, dataList[position].toString())
         when(holder) {
-            is TopicDetailViewHolder -> holder.bind(topic)
-            is CommentViewHolder -> holder.bind(topic.comments[position-1], fragment, topic.id)
+            is TopicDetailViewHolder -> holder.bind(dataList[0] as Topic)
+            is CommentViewHolder -> holder.bind(dataList[position] as Comment, fragment, (dataList[0] as Topic).id)
         }
     }
 

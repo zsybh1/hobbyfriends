@@ -6,17 +6,35 @@ import com.zsybh1.hobbyfriends.Model.Topic
 import java.time.LocalDateTime
 
 class UserViewModel : ViewModel() {
-    fun getInvitation(userId: Long) : MutableList<Invitation> {
-        val headers = mutableListOf<Invitation>()
-        return headers
+    val dataListInvitation = mutableListOf<Invitation>()
+    val dataListJoined = mutableListOf<Invitation>()
+    val dataListTopic = mutableListOf<Topic>()
+
+    var pageInvitation = 0
+    var pageJoined = 0
+    var pageTopic = 0
+
+    fun getInvitation(userId: Long, page:Int = pageInvitation ){
+        if (page == 0) {
+            pageInvitation = 0
+            dataListInvitation.clear()
+        }
+        pageInvitation++
     }
 
-    fun getJoined(userId: Long) : MutableList<Invitation> {
-        return  getInvitation(userId)
+    fun getJoined(userId: Long, page:Int = pageJoined){
+        if (page == 0) {
+            pageJoined = 0
+            dataListJoined.clear()
+        }
+        pageJoined++
     }
 
-    fun getTopic(userId: Long) : List<Topic> {
-        val headers = mutableListOf<Topic>()
-        return headers.toList()
+    fun getTopic(userId: Long, page: Int = pageTopic){
+        if (page == 0) {
+            pageTopic = 0
+            dataListTopic.clear()
+        }
+        pageTopic++
     }
 }

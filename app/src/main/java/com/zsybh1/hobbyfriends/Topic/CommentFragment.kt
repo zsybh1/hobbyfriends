@@ -7,9 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.scwang.smart.refresh.footer.BallPulseFooter
+import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.Adapter.CommentDetailAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_comment.*
+import kotlinx.android.synthetic.main.fragment_invite.*
+import kotlin.concurrent.thread
 
 class CommentFragment(private val topicId: Long, private val commentId: Long) : Fragment() {
 
@@ -18,6 +22,7 @@ class CommentFragment(private val topicId: Long, private val commentId: Long) : 
     }
 
     private lateinit var viewModel: CommentViewModel
+    private lateinit var adapter: CommentDetailAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,8 +37,37 @@ class CommentFragment(private val topicId: Long, private val commentId: Long) : 
         viewModel.commentId = commentId
         viewModel.topicId = topicId
 
+        adapter = CommentDetailAdapter(this, viewModel.dataList)
         rvComment.layoutManager = LinearLayoutManager(this.context)
-        rvComment.adapter = CommentDetailAdapter(this, viewModel.getComment())
+        rvComment.adapter = adapter
+        refreshComment
+            .setRefreshHeader(MaterialHeader(this.context))
+            .setRefreshFooter(BallPulseFooter(this.context))
+            .setEnableLoadMore(true)
+            .setEnableLoadMoreWhenContentNotFull(false)
+            .setOnRefreshListener { onRefresh() }
+            .setOnLoadMoreListener { onLoadMore() }
+
+        onRefresh()
+    }
+    private fun onRefresh() {
+        thread {
+            viewModel.getComment()
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshComment.finishRefresh()
+            }
+        }
+    }
+
+    private fun onLoadMore() {
+        thread {
+            viewModel.getComment()
+            requireActivity().runOnUiThread{
+                adapter.notifyDataSetChanged()
+                refreshComment.finishLoadMore()
+            }
+        }
     }
 
 }

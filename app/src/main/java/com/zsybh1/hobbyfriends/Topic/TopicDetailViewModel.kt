@@ -8,14 +8,19 @@ import com.zsybh1.hobbyfriends.Model.Topic
 class TopicDetailViewModel : ViewModel() {
     var topicId = 0L
 
+    val dataList = mutableListOf<Any>()
+
     companion object{
         private const val TAG = "TopicViewModel"
     }
 
-    fun getTopic(): Topic {
-        val topic = Gson().fromJson(getTopicFromNet(), Topic::class.java)
-        Log.d(TAG, topic.toString())
-        return topic
+    fun getTopic(){
+        dataList.clear()
+        dataList.add(Gson().fromJson(getTopicFromNet(), Topic::class.java))
+        Log.d(TAG, dataList[0].toString())
+        for (comment in (dataList[0] as Topic).comments) {
+            dataList.add(comment)
+        }
     }
 
     fun getTopicFromNet() : String{

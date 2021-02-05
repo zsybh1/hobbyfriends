@@ -9,6 +9,7 @@ import com.zsybh1.hobbyfriends.Topic.VpTopicAdapter
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.activity_topic.*
+import kotlinx.android.synthetic.main.fragment_comment.view.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 import java.lang.StringBuilder
 import java.time.LocalDateTime
