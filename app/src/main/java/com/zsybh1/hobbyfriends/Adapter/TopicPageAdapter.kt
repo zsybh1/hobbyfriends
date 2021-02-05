@@ -1,16 +1,13 @@
-package com.zsybh1.hobbyfriends.TopicHeaders
+package com.zsybh1.hobbyfriends.Adapter
 
-import android.content.Context
-import android.content.Intent
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.zsybh1.hobbyfriends.MainActivity
+import com.zsybh1.hobbyfriends.Holder.TopicHeaderViewHolder
+import com.zsybh1.hobbyfriends.Model.Topic
 import com.zsybh1.hobbyfriends.R
-import com.zsybh1.hobbyfriends.Topic.TopicActivity
 
-class TopicHeaderAdapter(private val fragment: Fragment, private val headers: List<TopicHeaderModel>)
+class TopicPageAdapter(private val fragment: Fragment, private val headers: List<Topic>)
     : RecyclerView.Adapter<TopicHeaderViewHolder>() {
 
     override fun getItemCount(): Int = headers.size

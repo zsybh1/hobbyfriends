@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zsybh1.hobbyfriends.R
-import com.zsybh1.hobbyfriends.TopicHeaders.TopicHeaderAdapter
+import com.zsybh1.hobbyfriends.Adapter.TopicPageAdapter
 import kotlinx.android.synthetic.main.fragment_my_topic.*
 
 class MyTopicFragment : Fragment() {
@@ -31,7 +31,7 @@ class MyTopicFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         rvMyTopic.layoutManager = LinearLayoutManager(this.context)
-        rvMyTopic.adapter = TopicHeaderAdapter(this, viewModel.getTopic(123)) //TODO: 获得自己的用户id
+        rvMyTopic.adapter = TopicPageAdapter(this, viewModel.getTopic(123)) //TODO: 获得自己的用户id
     }
 
 }

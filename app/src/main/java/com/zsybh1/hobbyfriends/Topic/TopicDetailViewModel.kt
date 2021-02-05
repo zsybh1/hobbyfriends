@@ -3,6 +3,7 @@ package com.zsybh1.hobbyfriends.Topic
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.zsybh1.hobbyfriends.Model.Topic
 
 class TopicDetailViewModel : ViewModel() {
     var topicId = 0L
@@ -11,7 +12,7 @@ class TopicDetailViewModel : ViewModel() {
         private const val TAG = "TopicViewModel"
     }
 
-    fun getTopic():Topic {
+    fun getTopic(): Topic {
         val topic = Gson().fromJson(getTopicFromNet(), Topic::class.java)
         Log.d(TAG, topic.toString())
         return topic

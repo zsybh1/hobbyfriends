@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zsybh1.hobbyfriends.Adapter.CommentDetailAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_comment.*
 
@@ -32,7 +33,7 @@ class CommentFragment(private val topicId: Long, private val commentId: Long) : 
         viewModel.topicId = topicId
 
         rvComment.layoutManager = LinearLayoutManager(this.context)
-        rvComment.adapter = CommentAdapter(this, viewModel.getComment())
+        rvComment.adapter = CommentDetailAdapter(this, viewModel.getComment())
     }
 
 }

@@ -1,4 +1,4 @@
-package com.zsybh1.hobbyfriends.MessageHeaders
+package com.zsybh1.hobbyfriends.MessageHeader
 
 import androidx.lifecycle.ViewModel
 import java.time.LocalDateTime

@@ -1,4 +1,4 @@
-package com.zsybh1.hobbyfriends.TopicHeaders
+package com.zsybh1.hobbyfriends.TopicHeader
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.zsybh1.hobbyfriends.*
-import kotlinx.android.synthetic.main.fragment_invite.*
+import com.zsybh1.hobbyfriends.Adapter.DefaultViewPagerAdaper
 import kotlinx.android.synthetic.main.fragment_topic.*
 import kotlinx.android.synthetic.main.layout_topic_title_bar.*
 
@@ -34,7 +34,7 @@ class TopicFragment : Fragment() {
 
 
         vpTopicHeaders.offscreenPageLimit = 1
-        vpTopicHeaders.adapter = VpDiscussAdaper(
+        vpTopicHeaders.adapter = DefaultViewPagerAdaper(
             requireActivity()
         ).apply { addFragments(createFragment) }
         tabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{

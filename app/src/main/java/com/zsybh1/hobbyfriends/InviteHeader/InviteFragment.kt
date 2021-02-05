@@ -1,21 +1,16 @@
-package com.zsybh1.hobbyfriends.InviteHeaders
+package com.zsybh1.hobbyfriends.InviteHeader
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.SystemClock
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.constant.SpinnerStyle
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener
+import com.zsybh1.hobbyfriends.Adapter.InvitePageAdapter
 import com.zsybh1.hobbyfriends.NewInvitationActivity
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_invite.*
@@ -29,7 +24,7 @@ class InviteFragment : Fragment() {
     }
 
     private lateinit var viewModel: InviteHeaderViewModel
-    private lateinit var adapter: InviteHeaderAdapter
+    private lateinit var adapter: InvitePageAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -41,7 +36,7 @@ class InviteFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(InviteHeaderViewModel::class.java)
 
 
-        adapter = InviteHeaderAdapter(layoutInflater, viewModel.dataList)
+        adapter = InvitePageAdapter(layoutInflater, viewModel.dataList)
         rvInvite.layoutManager = LinearLayoutManager(this.activity)
         rvInvite.adapter = adapter
         refreshInvite.setRefreshHeader(MaterialHeader(this.context))

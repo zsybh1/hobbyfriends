@@ -6,7 +6,7 @@
     app:startDestination="@id/inviteFragment">
     <fragment
         android:id="@+id/topicFragment"
-        android:name="com.zsybh1.hobbyfriends.TopicHeaders.TopicFragment"
+        android:name="com.zsybh1.hobbyfriends.TopicHeader.TopicFragment"
         android:label="fragment_topic"
         tools:layout="@layout/fragment_topic" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/messageFragment"
-        android:name="com.zsybh1.hobbyfriends.MessageHeaders.MessageFragment"
+        android:name="com.zsybh1.hobbyfriends.MessageHeader.MessageFragment"
         android:label="fragment_message"
         tools:layout="@layout/fragment_message" >
         <action
@@ -24,7 +24,7 @@
     </fragment>
     <fragment
         android:id="@+id/inviteFragment"
-        android:name="com.zsybh1.hobbyfriends.InviteHeaders.InviteFragment"
+        android:name="com.zsybh1.hobbyfriends.InviteHeader.InviteFragment"
         android:label="fragment_invite"
         tools:layout="@layout/fragment_invite" >
         <action

@@ -1,4 +1,4 @@
-package com.zsybh1.hobbyfriends.TopicHeaders
+package com.zsybh1.hobbyfriends.TopicHeader
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zsybh1.hobbyfriends.Adapter.TopicPageAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_time.*
 
@@ -29,7 +30,7 @@ class TimeFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(TopicHeaderViewModel::class.java)
 
         rvTimeHeaders.layoutManager =LinearLayoutManager(this.activity)
-        rvTimeHeaders.adapter = TopicHeaderAdapter(this, viewModel.getHeadersByTime())
+        rvTimeHeaders.adapter = TopicPageAdapter(this, viewModel.getHeadersByTime())
     }
 
     companion object {

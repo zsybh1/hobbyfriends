@@ -1,0 +1,14 @@
+package com.zsybh1.hobbyfriends.Model
+
+data class Comment(
+    val commentId: Long,
+    val replyToId: Long,
+    val replyToName: String?,
+    val content: String,
+    val userId: Long,
+    val username: String,
+    val headImg: String,
+    val likes: Long,
+    val subComments: List<Comment>,
+    val sendDate: String
+)

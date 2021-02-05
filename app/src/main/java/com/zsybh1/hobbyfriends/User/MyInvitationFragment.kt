@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zsybh1.hobbyfriends.InviteHeaders.InviteHeaderAdapter
+import com.zsybh1.hobbyfriends.Adapter.InvitePageAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_my_invitation.*
 
@@ -31,7 +31,7 @@ class MyInvitationFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         rvMyInvitation.layoutManager = LinearLayoutManager(this.activity)
-        rvMyInvitation.adapter = InviteHeaderAdapter(layoutInflater, viewModel.getInvitation(123)) //TODO: 获得自己的用户id
+        rvMyInvitation.adapter = InvitePageAdapter(layoutInflater, viewModel.getInvitation(123)) //TODO: 获得自己的用户id
     }
 
 }

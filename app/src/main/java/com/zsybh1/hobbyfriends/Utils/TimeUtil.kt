@@ -5,6 +5,11 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 object TimeUtil {
+    fun getLDTfromString(time: String) : LocalDateTime {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        return LocalDateTime.parse(time, formatter)
+    }
+
     fun getRelativeTimeString(time: LocalDateTime) : String{
         val now = LocalDateTime.now()
         val duration = Duration.between(time, now)

@@ -1,4 +1,4 @@
-package com.zsybh1.hobbyfriends.MessageHeaders
+package com.zsybh1.hobbyfriends.MessageHeader
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

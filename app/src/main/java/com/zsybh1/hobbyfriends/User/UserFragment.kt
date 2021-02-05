@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.zsybh1.hobbyfriends.R
-import com.zsybh1.hobbyfriends.TopicHeaders.VpDiscussAdaper
-import kotlinx.android.synthetic.main.fragment_topic.*
+import com.zsybh1.hobbyfriends.Adapter.DefaultViewPagerAdaper
 import kotlinx.android.synthetic.main.fragment_user.*
 import kotlinx.android.synthetic.main.layout_user_title_bar.*
 
@@ -32,7 +31,7 @@ class UserFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         vpHeaders.offscreenPageLimit = 1
-        vpHeaders.adapter = VpDiscussAdaper(requireActivity()).apply { addFragments(createFragment) }
+        vpHeaders.adapter = DefaultViewPagerAdaper(requireActivity()).apply { addFragments(createFragment) }
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 vpHeaders.setCurrentItem(tab!!.position)

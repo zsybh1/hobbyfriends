@@ -2,6 +2,7 @@ package com.zsybh1.hobbyfriends.Topic
 
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
+import com.zsybh1.hobbyfriends.Model.Comment
 
 class CommentViewModel : ViewModel() {
     var topicId = 0L

@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zsybh1.hobbyfriends.InviteHeaders.InviteHeaderAdapter
+import com.zsybh1.hobbyfriends.Adapter.InvitePageAdapter
 import com.zsybh1.hobbyfriends.R
-import com.zsybh1.hobbyfriends.TopicHeaders.TopicHeaderAdapter
 import kotlinx.android.synthetic.main.fragment_my_joined.*
 
 class MyJoinedFragment : Fragment() {
@@ -32,7 +31,7 @@ class MyJoinedFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         rvMyJoined.layoutManager = LinearLayoutManager(this.activity)
-        rvMyJoined.adapter = InviteHeaderAdapter(layoutInflater, viewModel.getJoined(123)) //TODO: 获得自己的用户id
+        rvMyJoined.adapter = InvitePageAdapter(layoutInflater, viewModel.getJoined(123)) //TODO: 获得自己的用户id
     }
 
 }
