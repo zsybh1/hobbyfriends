@@ -1,5 +1,6 @@
 package com.zsybh1.hobbyfriends.TopicHeader
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -56,6 +57,11 @@ class TopicFragment : Fragment() {
                 tabLayout.selectTab(tabLayout.getTabAt(position))
             }
         })
+
+        btnAdd.setOnClickListener {
+            val intent = Intent(this.context, NewTopicActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }
