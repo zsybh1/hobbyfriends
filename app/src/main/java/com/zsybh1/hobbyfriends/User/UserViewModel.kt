@@ -1,13 +1,14 @@
 package com.zsybh1.hobbyfriends.User
 
 import androidx.lifecycle.ViewModel
+import com.zsybh1.hobbyfriends.InviteHeaders.IInviteModel
 import com.zsybh1.hobbyfriends.InviteHeaders.InviteHeaderModel
 import com.zsybh1.hobbyfriends.TopicHeaders.TopicHeaderModel
 import java.time.LocalDateTime
 
 class UserViewModel : ViewModel() {
-    fun getInvitation(userId: Long) : List<InviteHeaderModel> {
-        val headers = mutableListOf<InviteHeaderModel>()
+    fun getInvitation(userId: Long) : MutableList<IInviteModel> {
+        val headers = mutableListOf<IInviteModel>()
         headers.add(InviteHeaderModel(1, LocalDateTime.now(), "测试标题", "测试用户",
             "测试内容", null, "https://img-blog.csdn.net/column?imageView2/1/w/224/h/224/interlace/1", 233, 123))
         headers.add(InviteHeaderModel(2, LocalDateTime.now().minusMinutes(24), "网传北理工理教发生自杀事件，是真的吗？发生什么了？", "连城",
@@ -15,7 +16,7 @@ class UserViewModel : ViewModel() {
         return headers
     }
 
-    fun getJoined(userId: Long) : List<InviteHeaderModel> {
+    fun getJoined(userId: Long) : MutableList<IInviteModel> {
         return  getInvitation(userId)
     }
 

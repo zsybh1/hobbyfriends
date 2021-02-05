@@ -11,6 +11,8 @@ class InviteHeaderViewHolder(private val view: View) : RecyclerView.ViewHolder(v
     fun bind(header: IInviteModel){
         when(header) {
             is InviteHeaderModel -> {
+                view.tvTitle.visibility = View.GONE
+                view.imPicture.visibility = View.GONE
                 view.tvUsername.text =  header.username
                 view.tvTime.text = TimeUtil.getRelativeTimeString(header.time)
                 view.tvComment.text = header.commentNum.toString()

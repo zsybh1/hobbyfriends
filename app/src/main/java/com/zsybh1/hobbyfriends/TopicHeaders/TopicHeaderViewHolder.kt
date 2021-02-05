@@ -3,6 +3,7 @@ package com.zsybh1.hobbyfriends.TopicHeaders
 import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Topic.TopicActivity
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
