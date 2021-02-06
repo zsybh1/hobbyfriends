@@ -10,6 +10,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.zsybh1.hobbyfriends.*
 import com.zsybh1.hobbyfriends.Adapter.DefaultViewPagerAdaper
+import kotlinx.android.synthetic.main.fragment_recommend.*
+import kotlinx.android.synthetic.main.fragment_time.*
 import kotlinx.android.synthetic.main.fragment_topic.*
 import kotlinx.android.synthetic.main.layout_topic_title_bar.*
 
@@ -40,7 +42,7 @@ class TopicFragment : Fragment() {
         ).apply { addFragments(createFragment) }
         tabLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                vpTopicHeaders.setCurrentItem(tab!!.position)
+                vpTopicHeaders.currentItem = tab!!.position
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -60,8 +62,14 @@ class TopicFragment : Fragment() {
 
         btnAdd.setOnClickListener {
             val intent = Intent(this.context, NewTopicActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 1234)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        (createFragment[0] as TimeFragment).refreshTime.autoRefresh()
+        (createFragment[1] as RecommendFragment).refreshRecommend.autoRefresh()
     }
 
 }

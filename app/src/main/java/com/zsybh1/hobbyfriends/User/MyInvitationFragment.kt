@@ -1,11 +1,13 @@
 package com.zsybh1.hobbyfriends.User
 
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
@@ -35,6 +37,7 @@ class MyInvitationFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
+        val userId = requireActivity().getSharedPreferences("save", Context.MODE_PRIVATE).getLong("userid", 0L)
         adapter = InvitePageAdapter(this, viewModel.dataListInvitation)
         rvMyInvitation.layoutManager = LinearLayoutManager(this.activity)
         rvMyInvitation.adapter =  adapter
@@ -43,27 +46,33 @@ class MyInvitationFragment : Fragment() {
             .setRefreshFooter(BallPulseFooter(this.context))
             .setEnableLoadMore(true)
             .setEnableLoadMoreWhenContentNotFull(false)
-            .setOnRefreshListener { onRefresh() }
-            .setOnLoadMoreListener { onLoadMore() }
+            .setOnRefreshListener { onRefresh(userId) }
+            .setOnLoadMoreListener { onLoadMore(userId) }
             .autoRefresh()
 
     }
-    private fun onRefresh() {
+    private fun onRefresh(userId:Long) {
         thread {
-            viewModel.getInvitation(123, 0)
+            viewModel.getInvitation(userId, 0)
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshMyInvitation.finishRefresh()
+                if (viewModel.result == -1) {
+                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
 
-    private fun onLoadMore() {
+    private fun onLoadMore(userId: Long) {
         thread {
-            viewModel.getInvitation(123)
+            viewModel.getInvitation(userId)
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshMyInvitation.finishLoadMore()
+                if (viewModel.result == -1) {
+                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.footer.BallPulseFooter
@@ -52,6 +53,9 @@ class TimeFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshTime.finishRefresh()
+                if (viewModel.result == -1) {
+                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
@@ -62,6 +66,9 @@ class TimeFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshTime.finishLoadMore()
+                if (viewModel.result == -1) {
+                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

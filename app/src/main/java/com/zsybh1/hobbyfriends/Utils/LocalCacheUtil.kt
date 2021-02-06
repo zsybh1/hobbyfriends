@@ -33,6 +33,12 @@ class LocalCacheUtil {
         if (!file.parentFile!!.exists()){
             file.parentFile!!.mkdirs()
         }
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file))
+        val type = url.substring(url.lastIndexOf('.'))
+        if (type.equals("png", true)){
+            bitmap?.compress(Bitmap.CompressFormat.PNG, 100, FileOutputStream(file))
+        }
+        else {
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file))
+        }
     }
 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
@@ -51,26 +52,37 @@ class InviteFragment : Fragment() {
 
         btnAdd.setOnClickListener {
             val intent = Intent(this.context, NewInvitationActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 1234)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        refreshInvite.autoRefresh()
     }
 
     private fun onRefresh() {
         thread {
-            viewModel.getFirstPage()
+            viewModel.getPage(0)
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshInvite.finishRefresh()
+                if (viewModel.result == -1) {
+                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
 
     private fun onLoadMore() {
         thread {
-            viewModel.getMorePage()
+            viewModel.getPage()
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshInvite.finishLoadMore()
+                if (viewModel.result == -1) {
+                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

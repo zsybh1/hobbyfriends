@@ -6,6 +6,6 @@ data class Activity(
     val start: String,
     val end: String,
     val position: String,
-    val followCount: Int,
-    val followers: List<User>
+    val followCount: Int?,
+    val followers: List<User>?
 )

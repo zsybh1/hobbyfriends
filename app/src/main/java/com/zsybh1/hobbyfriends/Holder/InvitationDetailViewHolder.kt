@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Model.Invitation
-import com.zsybh1.hobbyfriends.Model.Topic
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.item_invitation_detail.view.*
@@ -21,16 +20,16 @@ class InvitationDetailViewHolder(private val view: View) : RecyclerView.ViewHold
         view.imageLayout.visibility = View.GONE
         view.imageLayout.removeAllViews()
         BitmapUtil.display(view.imProfile, header.headImg)
-        view.tvUsername.text = header.username
+        view.tvUsername.text = header.ownerName
 
         view.tvTime.text = TimeUtil.getRelativeTimeString(TimeUtil.getLDTfromString(header.sendDate))
-        if (header.title != null) {
+        if (header.title != "") {
             view.tvTitle.visibility = View.VISIBLE
             view.tvTitle.text = header.title
         }
-        view.tvContent.text = header.content.replace("\n", "\n\n")
-        view.tvComment.text = header.comments.size.toString()
-        view.tvSub.text = header.likes.toString()
+        view.tvContent.text = header.context.replace("\n", "\n\n")
+        view.tvComment.text = if (header.comments != null) header.comments.size.toString() else "0"
+        view.tvSub.text = (header.likes?:0).toString()
         if (header.imgUrl.isNotEmpty()) {
             view.imageLayout.visibility = View.VISIBLE
             for (url in header.imgUrl) {
@@ -44,16 +43,18 @@ class InvitationDetailViewHolder(private val view: View) : RecyclerView.ViewHold
 
         view.tvPlace.text = "地点：${header.activity.position}"
         view.tvTag.text = "类型：${header.activity.tag}"
-        view.tvCount.text = "人数：${header.activity.followers.size}/${header.activity.followCount}"
+        view.tvCount.text = "人数：${if (header.comments != null) header.comments.size else 0}/${header.activity.followCount}"
         view.tvDeadline.text = "参加截止时间：${header.activity.deadline}"
         view.tvStartTime.text = "活动开始时间：${header.activity.start}"
         view.tvEndTime.text = "活动结束时间：${header.activity.end}"
         val username = fragment.requireActivity().getSharedPreferences("save", Context.MODE_PRIVATE).getString("username", "")
         var isFollowed = false
-        for (user in header.activity.followers){
-            if (username == user.username){
-                isFollowed = true
-                break
+        if (header.activity.followers != null) {
+            for (user in header.activity.followers) {
+                if (username == user.username) {
+                    isFollowed = true
+                    break
+                }
             }
         }
         if (isFollowed) {

@@ -17,11 +17,11 @@ class TopicHeaderViewHolder(private val view : View) : RecyclerView.ViewHolder(v
 
         view.tvUsername.text =  data.username
         view.tvTime.text = TimeUtil.getRelativeTimeString(TimeUtil.getLDTfromString(data.sendDate))
-        view.tvComment.text = data.comments.size.toString()
-        view.tvContent.text = data.content?:""
-        view.tvSub.text = data.likes.toString()
+        view.tvComment.text = if (data.comments !=null) (data.comments.size).toString() else "0"
+        view.tvContent.text = data.context
+        view.tvSub.text = (data.likes?:0).toString()
 
-        if (data.title != null) {
+        if (data.title != "") {
             view.tvTitle.visibility = View.VISIBLE
             view.tvTitle.text = data.title
         }
@@ -29,7 +29,9 @@ class TopicHeaderViewHolder(private val view : View) : RecyclerView.ViewHolder(v
             view.imPicture.visibility = View.VISIBLE
             BitmapUtil.display(view.imPicture, data.imgUrl[0])
         }
-        BitmapUtil.display(view.imProfile, data.headImg)
+        if (data.headImg != null) {
+            BitmapUtil.display(view.imProfile, data.headImg)
+        }
 
         view.setOnClickListener {
             val intent = Intent(fragment.context, TopicActivity::class.java)

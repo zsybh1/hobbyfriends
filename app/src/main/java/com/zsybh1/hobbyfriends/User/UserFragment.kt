@@ -65,7 +65,7 @@ class UserFragment : Fragment() {
             menu.setOnMenuItemClickListener{item ->
                 when (item.itemId) {
                     R.id.menuLogout -> {
-                        requireActivity().getSharedPreferences("save", Context.MODE_PRIVATE).edit { putString("username", "") }
+                        requireActivity().getSharedPreferences("save", Context.MODE_PRIVATE).edit { putLong("userid", 0) }
                         Toast.makeText(context, "退出登录", Toast.LENGTH_LONG).show()
                         startActivity(Intent(context, LoginActivity::class.java))
                         requireActivity().finish()

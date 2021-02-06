@@ -20,10 +20,14 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
         btnLogin.setOnClickListener {
-            getSharedPreferences("save", Context.MODE_PRIVATE).edit { putString("username", textUsername.text.toString()) }
-            Toast.makeText(this, "登录成功！", Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            if (getSharedPreferences("save", Context.MODE_PRIVATE).getLong("userid", 0L) != 0L) {
+                Toast.makeText(this, "登录成功！", Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            else {
+                Toast.makeText(this, "请先注册", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

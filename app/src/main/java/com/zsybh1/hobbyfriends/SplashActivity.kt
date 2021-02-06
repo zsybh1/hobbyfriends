@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
         }
         CoroutineScope(Job()).launch {
             delay(1000)
-            if (getSharedPreferences("save", Context.MODE_PRIVATE).getString("username", "") == ""){
+            if (getSharedPreferences("save", Context.MODE_PRIVATE).getLong("userid", 0L) == 0L){
                 startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             }
             else {

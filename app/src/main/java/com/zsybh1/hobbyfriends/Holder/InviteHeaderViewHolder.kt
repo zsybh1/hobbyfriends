@@ -17,13 +17,13 @@ class InviteHeaderViewHolder(private val view: View) : RecyclerView.ViewHolder(v
         view.tvTitle.visibility = View.GONE
         view.imPicture.visibility = View.GONE
 
-        view.tvUsername.text =  data.username
+        view.tvUsername.text =  data.ownerName
         view.tvTime.text = TimeUtil.getRelativeTimeString(TimeUtil.getLDTfromString(data.sendDate))
-        view.tvComment.text = data.comments.size.toString()
-        view.tvContent.text = data.content?:""
-        view.tvSub.text = data.likes.toString()
+        view.tvComment.text = if (data.comments != null) data.comments.size.toString() else "0"
+        view.tvContent.text = data.context
+        view.tvSub.text = (data.likes?:0).toString()
 
-        if (data.title != null) {
+        if (data.title != "") {
             view.tvTitle.visibility = View.VISIBLE
             view.tvTitle.text = data.title
         }

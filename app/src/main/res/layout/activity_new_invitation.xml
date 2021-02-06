@@ -7,7 +7,7 @@
     tools:context=".NewTopicActivity">
 
     <EditText
-        android:id="@+id/textPlace5"
+        android:id="@+id/textFollowCount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -35,7 +35,7 @@
         android:hint="运动类型"
         android:maxLength="20"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textPlace5"
+        app:layout_constraintEnd_toStartOf="@+id/textFollowCount"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/space4" />

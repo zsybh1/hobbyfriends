@@ -13,7 +13,7 @@ import java.util.*
 class NetCacheUtil {
 
     fun getBitmap(ivPic: ImageView, url: String){
-        Log.d(TAG, "getBitmap: start")
+        Log.d(TAG, "getBitmap: start from ${url}")
         DownloadTask().execute(ivPic, url)
     }
 
@@ -31,9 +31,11 @@ class NetCacheUtil {
         }
 
         override fun onPostExecute(result: Bitmap?) {
-            ivPic.setImageBitmap(result)
-            BitmapUtil.localCacheUtil.saveBitmap(url, result)
-            BitmapUtil.memoryCacheUtil.saveBitmap(url, result)
+            if (result != null) {
+                ivPic.setImageBitmap(result)
+                BitmapUtil.localCacheUtil.saveBitmap(url, result)
+                BitmapUtil.memoryCacheUtil.saveBitmap(url, result)
+            }
         }
     }
 

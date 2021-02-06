@@ -18,8 +18,10 @@ class TopicDetailViewModel : ViewModel() {
         dataList.clear()
         dataList.add(Gson().fromJson(getTopicFromNet(), Topic::class.java))
         Log.d(TAG, dataList[0].toString())
-        for (comment in (dataList[0] as Topic).comments) {
-            dataList.add(comment)
+        if ((dataList[0] as Topic).comments != null) {
+            for (comment in (dataList[0] as Topic).comments!!) {
+                dataList.add(comment)
+            }
         }
     }
 

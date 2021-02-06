@@ -10,6 +10,11 @@ object TimeUtil {
         return LocalDateTime.parse(time, formatter)
     }
 
+    fun getStringfromLDT(time: LocalDateTime) : String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        return formatter.format(time)
+    }
+
     fun getRelativeTimeString(time: LocalDateTime) : String{
         val now = LocalDateTime.now()
         val duration = Duration.between(time, now)
