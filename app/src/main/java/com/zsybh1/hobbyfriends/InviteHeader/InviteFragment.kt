@@ -36,7 +36,7 @@ class InviteFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(InviteHeaderViewModel::class.java)
 
 
-        adapter = InvitePageAdapter(layoutInflater, viewModel.dataList)
+        adapter = InvitePageAdapter(this, viewModel.dataList)
         rvInvite.layoutManager = LinearLayoutManager(this.activity)
         rvInvite.adapter = adapter
         refreshInvite.setRefreshHeader(MaterialHeader(this.context))

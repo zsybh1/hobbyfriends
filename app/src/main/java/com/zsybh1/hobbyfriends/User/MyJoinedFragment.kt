@@ -35,7 +35,7 @@ class MyJoinedFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        adapter = InvitePageAdapter(layoutInflater, viewModel.dataListJoined)
+        adapter = InvitePageAdapter(this, viewModel.dataListJoined)
         rvMyJoined.layoutManager = LinearLayoutManager(this.activity)
         rvMyJoined.adapter = adapter
         refreshMyJoined

@@ -4,12 +4,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Model.Comment
-import com.zsybh1.hobbyfriends.Topic.CommentFragment
-import com.zsybh1.hobbyfriends.Topic.VpTopicAdapter
+import com.zsybh1.hobbyfriends.Comment.CommentFragment
+import com.zsybh1.hobbyfriends.Adapter.TopicViewPagerAdapter
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.activity_topic.*
-import kotlinx.android.synthetic.main.fragment_comment.view.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 import java.lang.StringBuilder
 import java.time.LocalDateTime
@@ -43,9 +42,9 @@ class CommentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) 
             view.replyLayout.visibility = View.VISIBLE
             view.replyLayout.setOnClickListener {
                 val viewpager = fragment.requireActivity().vpTopic
-                while ((viewpager.adapter as VpTopicAdapter).fragments.size >= 2)
-                    (viewpager.adapter as VpTopicAdapter).delFragment()
-                (viewpager.adapter as VpTopicAdapter).addFragment(
+                while ((viewpager.adapter as TopicViewPagerAdapter).fragments.size >= 2)
+                    (viewpager.adapter as TopicViewPagerAdapter).delFragment()
+                (viewpager.adapter as TopicViewPagerAdapter).addFragment(
                     CommentFragment.newInstance(
                         topicId,
                         data.commentId

@@ -35,7 +35,7 @@ class MyInvitationFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
-        adapter = InvitePageAdapter(layoutInflater, viewModel.dataListInvitation)
+        adapter = InvitePageAdapter(this, viewModel.dataListInvitation)
         rvMyInvitation.layoutManager = LinearLayoutManager(this.activity)
         rvMyInvitation.adapter =  adapter
         refreshMyInvitation

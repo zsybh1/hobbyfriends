@@ -34,6 +34,7 @@ class TopicHeaderViewHolder(private val view : View) : RecyclerView.ViewHolder(v
         view.setOnClickListener {
             val intent = Intent(fragment.context, TopicActivity::class.java)
             intent.putExtra("topicId", data.id)
+            intent.putExtra("type", "topic")
             fragment.startActivity(intent)
         }
     }

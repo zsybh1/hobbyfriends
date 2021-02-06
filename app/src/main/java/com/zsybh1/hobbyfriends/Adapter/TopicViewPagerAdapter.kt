@@ -1,10 +1,10 @@
-package com.zsybh1.hobbyfriends.Topic
+package com.zsybh1.hobbyfriends.Adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class VpTopicAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class TopicViewPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     val fragments = mutableListOf<Fragment>()
 
     override fun createFragment(position: Int): Fragment = fragments[position]

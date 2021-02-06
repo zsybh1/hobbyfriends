@@ -1,4 +1,4 @@
-package com.zsybh1.hobbyfriends.Topic
+package com.zsybh1.hobbyfriends.Comment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,7 +12,6 @@ import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.Adapter.CommentDetailAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_comment.*
-import kotlinx.android.synthetic.main.fragment_invite.*
 import kotlin.concurrent.thread
 
 class CommentFragment(private val topicId: Long, private val commentId: Long) : Fragment() {

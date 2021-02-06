@@ -3,6 +3,7 @@ package com.zsybh1.hobbyfriends.Topic
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
+import com.zsybh1.hobbyfriends.Adapter.TopicViewPagerAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.activity_topic.*
 
@@ -13,9 +14,10 @@ class TopicActivity : AppCompatActivity() {
         setContentView(R.layout.activity_topic)
 
         val topicId = intent.getLongExtra("topicId", 0L)
+        val type = intent.getStringExtra("type")
 
-        vpTopic.adapter = VpTopicAdapter(this)
-        (vpTopic.adapter as VpTopicAdapter).addFragment(TopicDetailFragment.newInstance(topicId))
+        vpTopic.adapter = TopicViewPagerAdapter(this)
+        (vpTopic.adapter as TopicViewPagerAdapter).addFragment(TopicDetailFragment.newInstance(topicId, type))
 
     }
 

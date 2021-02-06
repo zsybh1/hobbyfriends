@@ -1,8 +1,11 @@
 package com.zsybh1.hobbyfriends.Holder
 
+import android.content.Intent
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Model.Invitation
+import com.zsybh1.hobbyfriends.Topic.TopicActivity
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.item_invite_header.view.*
@@ -10,7 +13,7 @@ import java.time.Duration
 import java.time.LocalDateTime
 
 class InviteHeaderViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-    fun bind(data: Invitation){
+    fun bind(data: Invitation, fragment: Fragment){
         view.tvTitle.visibility = View.GONE
         view.imPicture.visibility = View.GONE
 
@@ -54,6 +57,14 @@ class InviteHeaderViewHolder(private val view: View) : RecyclerView.ViewHolder(v
             else {
                 view.tvStartState.text = "已结束"
             }
+        }
+        view.tvTag.text = data.activity.tag
+
+        view.setOnClickListener {
+            val intent = Intent(fragment.context, TopicActivity::class.java)
+            intent.putExtra("topicId", data.id)
+            intent.putExtra("type", "invitation")
+            fragment.startActivity(intent)
         }
     }
 }

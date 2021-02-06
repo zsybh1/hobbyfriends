@@ -1,4 +1,4 @@
-package com.zsybh1.hobbyfriends.Topic
+package com.zsybh1.hobbyfriends.Comment
 
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
