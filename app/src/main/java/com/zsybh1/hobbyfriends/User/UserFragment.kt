@@ -1,14 +1,20 @@
 package com.zsybh1.hobbyfriends.User
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.view.*
+import android.widget.PopupMenu
+import android.widget.Toast
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.zsybh1.hobbyfriends.R
 import com.zsybh1.hobbyfriends.Adapter.DefaultViewPagerAdaper
+import com.zsybh1.hobbyfriends.LoginActivity
+import com.zsybh1.hobbyfriends.MainActivity
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_user.*
 import kotlinx.android.synthetic.main.layout_user_title_bar.*
 
@@ -18,6 +24,7 @@ class UserFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_user, container, false)
     }
 
@@ -51,6 +58,23 @@ class UserFragment : Fragment() {
                 tabLayout.selectTab(tabLayout.getTabAt(position))
             }
         })
+
+        imSetting.setOnClickListener {
+            val menu = PopupMenu(context, imSetting)
+            menu.menuInflater.inflate(R.menu.menu_me, menu.menu)
+            menu.setOnMenuItemClickListener{item ->
+                when (item.itemId) {
+                    R.id.menuLogout -> {
+                        requireActivity().getSharedPreferences("save", Context.MODE_PRIVATE).edit { putString("username", "") }
+                        Toast.makeText(context, "退出登录", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(context, LoginActivity::class.java))
+                        requireActivity().finish()
+                    }
+                }
+                true
+            }
+            menu.show()
+        }
     }
 
     companion object {

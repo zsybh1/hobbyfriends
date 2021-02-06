@@ -13,16 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HobbyFriends">
-        <activity android:name=".NewTopicActivity"></activity>
-        <activity android:name=".NewInvitationActivity" />
-        <activity android:name=".Topic.TopicActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".NewTopicActivity" />
+        <activity android:name=".NewInvitationActivity" />
+        <activity android:name=".Topic.TopicActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
