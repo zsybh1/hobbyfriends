@@ -2,6 +2,7 @@ package com.zsybh1.hobbyfriends.Holder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.zsybh1.hobbyfriends.Comment.CommentViewModel
 import com.zsybh1.hobbyfriends.Model.Comment
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
@@ -17,7 +18,7 @@ class CommentDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val time = LocalDateTime.parse(data.sendDate, formatter)
         view.tvTime.text = TimeUtil.getRelativeTimeString(time)
-        view.tvComment.text = data.content.replace("\n", "\n\n")
+        view.tvComment.text = data.context.replace("\n", "\n\n")
         view.tvSub.text = data.likes.toString()
         fun buildReply() : String {
             val stringBuilder = StringBuilder()
@@ -31,6 +32,10 @@ class CommentDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(
         }
         else {
             view.tvUsername.text = data.username
+        }
+        view.setOnClickListener {
+            CommentViewModel.selectId = data.userId
+            CommentViewModel.selectName.value = data.username
         }
     }
 }

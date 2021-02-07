@@ -29,7 +29,7 @@ class InvitationDetailAdapter(private val fragment: Fragment, private val dataLi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == 0) {
-            val root = fragment.layoutInflater.inflate(R.layout.item_topic_detail, parent, false)
+            val root = fragment.layoutInflater.inflate(R.layout.item_invitation_detail, parent, false)
             return InvitationDetailViewHolder(root)
         }
         else {

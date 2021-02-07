@@ -2,6 +2,7 @@ package com.zsybh1.hobbyfriends.Topic
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import com.zsybh1.hobbyfriends.Adapter.TopicViewPagerAdapter
 import com.zsybh1.hobbyfriends.R
@@ -17,7 +18,7 @@ class TopicActivity : AppCompatActivity() {
         val type = intent.getStringExtra("type")
 
         vpTopic.adapter = TopicViewPagerAdapter(this)
-        (vpTopic.adapter as TopicViewPagerAdapter).addFragment(TopicDetailFragment.newInstance(topicId, type))
+        (vpTopic.adapter as TopicViewPagerAdapter).fragments.add(TopicDetailFragment.newInstance(topicId, type))
 
     }
 

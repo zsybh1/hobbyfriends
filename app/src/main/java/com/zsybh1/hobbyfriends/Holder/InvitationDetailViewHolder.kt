@@ -67,16 +67,16 @@ class InvitationDetailViewHolder(private val view: View) : RecyclerView.ViewHold
         val now = LocalDateTime.now()
         val deadline = TimeUtil.getLDTfromString(header.activity.deadline)
         val duration = Duration.between(now, deadline)
-        if (!isFollowed && duration.isNegative) {
-            view.tvJoin.setTextColor(0xAAAAAA)
-        }
 
         view.tvJoin.setOnClickListener {
             if (!isFollowed && duration.isNegative) {
-                Toast.makeText(fragment.context, "已超过参加截止时间，无法加入！", Toast.LENGTH_LONG).show()
+                Toast.makeText(fragment.context, "活动已截止，无法加入！", Toast.LENGTH_LONG).show()
+            }
+            else if (!isFollowed && (header.activity.followers == null || header.activity.followers.size <= header.activity.followCount)) {
+                Toast.makeText(fragment.context, "活动已满员，无法加入！", Toast.LENGTH_LONG).show()
             }
             else if (!isFollowed) {
-                //TODO: 加入
+                //TODO:加入
             }
             else {
                 //TODO: 退出

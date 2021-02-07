@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Holder.CommentDetailViewHolder
+import com.zsybh1.hobbyfriends.Holder.CommentViewHolder
 import com.zsybh1.hobbyfriends.Model.Comment
 import com.zsybh1.hobbyfriends.R
 

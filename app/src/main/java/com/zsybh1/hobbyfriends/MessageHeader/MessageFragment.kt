@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zsybh1.hobbyfriends.Adapter.MessageHeaderAdapter
 import com.zsybh1.hobbyfriends.R
 import kotlinx.android.synthetic.main.fragment_message.*
 
@@ -30,7 +31,7 @@ class MessageFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MessageHeaderViewModel::class.java)
 
         rvMessageHeaders.layoutManager = LinearLayoutManager(this.activity)
-        rvMessageHeaders.adapter = MessageHeaderAdapter(layoutInflater, viewModel.getHeaders())
+        rvMessageHeaders.adapter = MessageHeaderAdapter(this, viewModel.getHeaders())
     }
 
 }

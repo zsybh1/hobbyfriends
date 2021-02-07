@@ -17,3 +17,10 @@ data class RequestInvitation(
     val sendDate: String,
     val activity: Activity
 )
+
+data class RequestComment(
+    val replyToId: Long,
+    val userId:Long,
+    val context: String,
+    val sendDate: String
+)
