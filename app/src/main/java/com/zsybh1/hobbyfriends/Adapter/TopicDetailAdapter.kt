@@ -16,7 +16,7 @@ class TopicDetailAdapter(private val fragment: Fragment, private val dataList: L
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         Log.d(TAG, dataList[position].toString())
         when(holder) {
-            is TopicDetailViewHolder -> holder.bind(dataList[0] as Topic)
+            is TopicDetailViewHolder -> holder.bind(dataList[0] as Topic, fragment)
             is CommentViewHolder -> holder.bind(dataList[position] as Comment, fragment, (dataList[0] as Topic).id)
         }
     }

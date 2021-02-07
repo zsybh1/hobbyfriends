@@ -27,6 +27,10 @@ class RegisterActivity : AppCompatActivity() {
         private const val TAG = "RegisterActivity"
     }
 
+    private var imageUrl = Const.apiHead + "/images/head/1.png"
+
+    private var doing = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -49,37 +53,42 @@ class RegisterActivity : AppCompatActivity() {
             ISNav.getInstance().toListActivity(this, config, 12345)
         }
         btnRegister.setOnClickListener {
-            if (textUsername.text.toString().length < 6 || textUsername.text.toString().length > 18) {
-                Toast.makeText(this, "用户名长度需在6-18之间", Toast.LENGTH_LONG).show()
-            }
-            else if (textPassword.text.toString() != textCheckPwd.text.toString()) {
-                Toast.makeText(this, "用户名长度需在6-18之间", Toast.LENGTH_LONG).show()
+            if (doing) {
+                Toast.makeText(this, "图片上传中，请稍后", Toast.LENGTH_LONG).show()
             }
             else {
-                val user = User(
-                    0,
-                    textUsername.text.toString(),
-                    textPassword.text.toString(),
-                    tvGender.text.toString(),
-                    textMail.text.toString(),
-                    Const.apiHead + "/images/head/1.png"
-                )
-                val json = Gson().toJson(user)
-                Log.d(TAG, json)
-                thread {
-                    val ret = NetUtil.postRequest(Const.apiHead + "/user",json)
-                    if (ret != null && ret[0] == '{') {
-                        val response = JSONObject(ret)
-                        val dataJson = response.getJSONObject("data")
-                        val data = Gson().fromJson(dataJson.toString(), User::class.java)
-                        Log.d(TAG, "注册获得id: ${data.id}")
-                        //TODO: 在登录界面获得并存放用户id
-                        getSharedPreferences("save", Context.MODE_PRIVATE).edit { putLong("userid", data.id) }
-                        runOnUiThread{
-                            Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show()
+                if (textUsername.text.toString().length < 6 || textUsername.text.toString().length > 18) {
+                    Toast.makeText(this, "用户名长度需在6-18之间", Toast.LENGTH_LONG).show()
+                }
+                else if (textPassword.text.toString() != textCheckPwd.text.toString()) {
+                    Toast.makeText(this, "用户名长度需在6-18之间", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    val user = User(
+                        0,
+                        textUsername.text.toString(),
+                        textPassword.text.toString(),
+                        tvGender.text.toString(),
+                        textMail.text.toString(),
+                        imageUrl
+                    )
+                    val json = Gson().toJson(user)
+                    Log.d(TAG, json)
+                    thread {
+                        val ret = NetUtil.postRequest(Const.apiHead + "/user",json)
+                        if (ret != null && ret[0] == '{') {
+                            val response = JSONObject(ret)
+                            val dataJson = response.getJSONObject("data")
+                            val data = Gson().fromJson(dataJson.toString(), User::class.java)
+                            Log.d(TAG, "注册获得id: ${data.id}")
+
+                            getSharedPreferences("save", Context.MODE_PRIVATE).edit { putLong("userid", data.id) }
+                            runOnUiThread{
+                                Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show()
+                            }
                         }
+                        finish()
                     }
-                    finish()
                 }
             }
         }
@@ -90,6 +99,25 @@ class RegisterActivity : AppCompatActivity() {
         if (requestCode == 12345 && resultCode == RESULT_OK && data != null){
             val path= data.getStringArrayListExtra("result")
             Toast.makeText(this, "已选择${path!![0]}", Toast.LENGTH_LONG).show()
+            thread {
+                doing = true
+                val ret = NetUtil.upload(Const.apiHead + "/headImg/upload",path[0])
+                Log.d(TAG, "onActivityResult: get json ${ret}")
+                if (ret != null && ret[0] == '{') {
+                    val url = JSONObject(ret).getString("url")
+                    Log.d(TAG, "onActivityResult: get url ${url}")
+                    imageUrl = Const.apiHead + url
+                    runOnUiThread{
+                        Toast.makeText(this, "上传成功", Toast.LENGTH_LONG).show()
+                    }
+                }
+                else {
+                    runOnUiThread{
+                        Toast.makeText(this, "上传失败", Toast.LENGTH_LONG).show()
+                    }
+                }
+                doing = false
+            }
         }
     }
 }

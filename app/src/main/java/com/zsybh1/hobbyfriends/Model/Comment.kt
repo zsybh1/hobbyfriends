@@ -3,7 +3,7 @@ package com.zsybh1.hobbyfriends.Model
 data class Comment(
     val commentId: Long,
     val replyToId: Long,
-    val replyToName: String?,
+    var replyToName: String?,
     val context: String,
     val userId: Long,
     val username: String,

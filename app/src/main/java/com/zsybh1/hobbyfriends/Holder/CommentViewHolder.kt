@@ -9,6 +9,7 @@ import com.zsybh1.hobbyfriends.Model.Comment
 import com.zsybh1.hobbyfriends.Comment.CommentFragment
 import com.zsybh1.hobbyfriends.Adapter.TopicViewPagerAdapter
 import com.zsybh1.hobbyfriends.Comment.CommentViewModel
+import com.zsybh1.hobbyfriends.R
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.activity_topic.*
@@ -25,6 +26,7 @@ class CommentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) 
         view.tvReply2.visibility = View.GONE
         view.tvReply3.visibility = View.GONE
         view.tvMore.visibility = View.GONE
+        view.imProfile.setImageResource(R.mipmap.default_image)
 
         view.setOnClickListener {
             val viewpager = fragment.requireActivity().vpTopic

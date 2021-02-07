@@ -12,6 +12,9 @@ class CommentDetailAdapter(private val fragment: Fragment, private val dataList:
     override fun getItemCount(): Int = dataList.size
 
     override fun onBindViewHolder(holder: CommentDetailViewHolder, position: Int) {
+        if (position == 0) {
+            dataList[position].replyToName = ""
+        }
         holder.bind(dataList[position])
     }
 

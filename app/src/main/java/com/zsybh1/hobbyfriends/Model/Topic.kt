@@ -13,5 +13,5 @@ data class Topic(
     val context: String,
     val views: Long?,
     val likes: Long?,
-    val likeList: List<User>?
+    val likeList: List<Long?>?
 )

@@ -7,5 +7,5 @@ data class Activity(
     val end: String,
     val position: String,
     val followCount: Int,
-    val followers: List<User>?
+    val followers: List<User?>?
 )

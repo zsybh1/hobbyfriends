@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.zsybh1.hobbyfriends.Comment.CommentViewModel
 import com.zsybh1.hobbyfriends.Model.Comment
+import com.zsybh1.hobbyfriends.R
 import com.zsybh1.hobbyfriends.Utils.BitmapUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.item_comment.view.*
@@ -20,6 +21,8 @@ class CommentDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(
         view.tvTime.text = TimeUtil.getRelativeTimeString(time)
         view.tvComment.text = data.context.replace("\n", "\n\n")
         view.tvSub.text = data.likes.toString()
+        view.imProfile.setImageResource(R.mipmap.default_image)
+
         fun buildReply() : String {
             val stringBuilder = StringBuilder()
             stringBuilder.append(data.username)
@@ -27,7 +30,7 @@ class CommentDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(
             stringBuilder.append(data.replyToName)
             return stringBuilder.toString()
         }
-        if (data.replyToName != null) {
+        if (data.replyToName != null && data.replyToName != "") {
             view.tvUsername.text = buildReply()
         }
         else {
