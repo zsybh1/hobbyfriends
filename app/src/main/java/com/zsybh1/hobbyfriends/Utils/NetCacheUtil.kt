@@ -12,18 +12,20 @@ import java.util.*
 
 class NetCacheUtil {
 
-    fun getBitmap(ivPic: ImageView, url: String){
+    fun getBitmap(ivPic: ImageView, url: String, width: Int){
         Log.d(TAG, "getBitmap: start from ${url}")
-        DownloadTask().execute(ivPic, url)
+        DownloadTask().execute(ivPic, url, width)
     }
 
     private inner class DownloadTask : AsyncTask<Any,Void,Bitmap>(){
         lateinit var ivPic: ImageView
         lateinit var url: String
+        var width = -1
         // 传入的参数：ivPic, url
         override fun doInBackground(vararg params: Any?): Bitmap? {
             ivPic = params[0] as ImageView
             url = params[1] as String
+            width = params[2] as Int
             val bitmap = downloadBitmap(url)
 //            ivPic.tag = ivPic   // 标记imageView使得imageView和url可以一一对应
 
@@ -32,6 +34,7 @@ class NetCacheUtil {
 
         override fun onPostExecute(result: Bitmap?) {
             if (result != null) {
+                BitmapUtil.reshape(ivPic, result, width)
                 ivPic.setImageBitmap(result)
                 BitmapUtil.localCacheUtil.saveBitmap(url, result)
                 BitmapUtil.memoryCacheUtil.saveBitmap(url, result)

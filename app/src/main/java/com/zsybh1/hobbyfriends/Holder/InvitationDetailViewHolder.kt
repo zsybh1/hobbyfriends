@@ -1,8 +1,10 @@
 package com.zsybh1.hobbyfriends.Holder
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -73,13 +75,8 @@ class InvitationDetailViewHolder(private val view: View) : RecyclerView.ViewHold
                 val imageView = ImageView(view.context)
                 val dm = view.resources.displayMetrics
                 val width = dm.widthPixels
-                BitmapUtil.display(imageView, url)
-                var bitmap = BitmapUtil.memoryCacheUtil.getBitmap(url)
-                if (bitmap == null) {
-                    bitmap = BitmapUtil.localCacheUtil.getBitmap(url)
-                }
-                val height = width *bitmap!!.height / bitmap.width
-                imageView.layoutParams = LinearLayout.LayoutParams(width,height)
+                val density = dm.density
+                BitmapUtil.display(imageView, url, (width - 16 * density).toInt())
                 imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 view.imageLayout.addView(imageView)
             }

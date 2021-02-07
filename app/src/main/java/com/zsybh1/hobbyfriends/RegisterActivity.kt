@@ -57,11 +57,14 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "图片上传中，请稍后", Toast.LENGTH_LONG).show()
             }
             else {
-                if (textUsername.text.toString().length < 6 || textUsername.text.toString().length > 18) {
-                    Toast.makeText(this, "用户名长度需在6-18之间", Toast.LENGTH_LONG).show()
+                if (textUsername.text.toString().length < 2 || textUsername.text.toString().length > 12) {
+                    Toast.makeText(this, "用户名长度需在2-12之间！", Toast.LENGTH_LONG).show()
                 }
                 else if (textPassword.text.toString() != textCheckPwd.text.toString()) {
-                    Toast.makeText(this, "用户名长度需在6-18之间", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "两次输入的密码不同！", Toast.LENGTH_LONG).show()
+                }
+                else if (textMail.text.toString() == "") {
+                    Toast.makeText(this, "没有输入邮箱！", Toast.LENGTH_LONG).show()
                 }
                 else {
                     val user = User(
