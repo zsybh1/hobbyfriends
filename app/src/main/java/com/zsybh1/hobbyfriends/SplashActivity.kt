@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.zsybh1.hobbyfriends.Utils.NetUtil
 import kotlinx.coroutines.*
 
 class SplashActivity : AppCompatActivity() {
@@ -23,9 +24,14 @@ class SplashActivity : AppCompatActivity() {
                 requestPermissions(permissions, 101)
             }
         }
+        NetUtil.token =
+            getSharedPreferences("save", Context.MODE_PRIVATE).getString("token", "").toString()
+        if (NetUtil.token == "null") {
+            NetUtil.token = ""
+        }
         CoroutineScope(Job()).launch {
-            delay(1000)
-            if (getSharedPreferences("save", Context.MODE_PRIVATE).getLong("userid", 0L) == 0L){
+            delay(2000)
+            if (NetUtil.token == ""){
                 startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
             }
             else {

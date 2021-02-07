@@ -27,6 +27,7 @@ class InvitationDetailViewHolder(private val view: View) : RecyclerView.ViewHold
         view.imageLayout.visibility = View.GONE
         view.imageLayout.removeAllViews()
         view.imProfile.setImageResource(R.mipmap.default_image)
+        view.tvContent.text = data.context
 
         BitmapUtil.display(view.imProfile, data.headImg)
         view.tvUsername.text = data.ownerName
@@ -66,7 +67,6 @@ class InvitationDetailViewHolder(private val view: View) : RecyclerView.ViewHold
             view.tvTitle.visibility = View.VISIBLE
             view.tvTitle.text = data.title
         }
-        view.tvContent.text = data.context.replace("\n", "\n\n")
         view.tvComment.text = if (data.comments != null) data.comments.size.toString() else "0"
         view.tvSub.text = (data.likes?:0).toString()
         if (data.imgUrl.isNotEmpty()) {

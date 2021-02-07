@@ -22,6 +22,7 @@ import com.zsybh1.hobbyfriends.Model.RequestComment
 import com.zsybh1.hobbyfriends.Model.RequestInvitation
 import com.zsybh1.hobbyfriends.NewInvitationActivity
 import com.zsybh1.hobbyfriends.R
+import com.zsybh1.hobbyfriends.Utils.MessageUtil
 import com.zsybh1.hobbyfriends.Utils.NetUtil
 import com.zsybh1.hobbyfriends.Utils.TimeUtil
 import kotlinx.android.synthetic.main.fragment_invite.*
@@ -103,9 +104,7 @@ class TopicDetailFragment(private val topicId: Long, private val type:String) : 
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshTopic.finishRefresh()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }
@@ -116,9 +115,7 @@ class TopicDetailFragment(private val topicId: Long, private val type:String) : 
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshTopic.finishLoadMore()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }

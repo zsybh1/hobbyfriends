@@ -78,19 +78,26 @@ class RegisterActivity : AppCompatActivity() {
                     val json = Gson().toJson(user)
                     Log.d(TAG, json)
                     thread {
-                        val ret = NetUtil.postRequest(Const.apiHead + "/user",json)
+                        val ret = NetUtil.postRequest(Const.apiHead + "/sign",json)
                         if (ret != null && ret[0] == '{') {
                             val response = JSONObject(ret)
                             val dataJson = response.getJSONObject("data")
                             val data = Gson().fromJson(dataJson.toString(), User::class.java)
-                            Log.d(TAG, "注册获得id: ${data.id}")
 
-                            getSharedPreferences("save", Context.MODE_PRIVATE).edit { putLong("userid", data.id) }
                             runOnUiThread{
                                 Toast.makeText(this, "注册成功", Toast.LENGTH_LONG).show()
+                                val intent = Intent(this, CompleteActivity::class.java)
+                                intent.putExtra("userid", data.id)
+                                startActivity(intent)
+
+                                finish()
                             }
                         }
-                        finish()
+                        else {
+                            runOnUiThread{
+                                Toast.makeText(this, "注册失败", Toast.LENGTH_LONG).show()
+                            }
+                        }
                     }
                 }
             }

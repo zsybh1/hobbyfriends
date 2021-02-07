@@ -14,8 +14,11 @@ object BitmapUtil {
     val localCacheUtil = LocalCacheUtil()
     val memoryCacheUtil = MemoryCacheUtil()
 
-    fun display(ivPic: ImageView, url: String, reshapeWidth :Int = -1) {
-        ivPic.setImageResource(R.mipmap.default_image)
+    fun display(ivPic: ImageView, url: String?, reshapeWidth :Int = -1) {
+        if (url == null) {
+            ivPic.setImageResource(R.mipmap.default_image)
+            return
+        }
 
         // 内存缓存
         var bitmap = memoryCacheUtil.getBitmap(url)

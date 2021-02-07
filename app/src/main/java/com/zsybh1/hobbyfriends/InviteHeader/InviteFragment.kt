@@ -14,6 +14,7 @@ import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.Adapter.InvitePageAdapter
 import com.zsybh1.hobbyfriends.NewInvitationActivity
 import com.zsybh1.hobbyfriends.R
+import com.zsybh1.hobbyfriends.Utils.MessageUtil
 import kotlinx.android.synthetic.main.fragment_invite.*
 import kotlin.concurrent.thread
 
@@ -67,9 +68,7 @@ class InviteFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshInvite.finishRefresh()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }
@@ -80,9 +79,7 @@ class InviteFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshInvite.finishLoadMore()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }

@@ -9,6 +9,7 @@ import java.util.*
 
 object NetUtil {
     private const val TAG = "NetUtil"
+    var token = ""
 
     fun upload(Url: String, path: String) : String? {
         try {
@@ -27,6 +28,7 @@ object NetUtil {
             conn.setRequestProperty("Connection", "keep-alive")
             conn.setRequestProperty("Charset", charset);
             conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=$boundary")
+            conn.setRequestProperty("token", token)
 
 
             val file = File(path)
@@ -74,6 +76,7 @@ object NetUtil {
             val conn= url.openConnection() as HttpURLConnection
             conn.readTimeout = 5000
             conn.requestMethod = "GET"
+            conn.setRequestProperty("token", token)
 
             val response = conn.responseCode
             if (response == HttpURLConnection.HTTP_OK) {
@@ -95,7 +98,7 @@ object NetUtil {
             val conn = url.openConnection() as HttpURLConnection
             conn.readTimeout = 5000
             conn.requestMethod = "POST"
-
+            conn.setRequestProperty("token", token)
             conn.setRequestProperty("Content-Type", "application/json")
 
             val output = conn.outputStream
@@ -121,7 +124,7 @@ object NetUtil {
             val conn = url.openConnection() as HttpURLConnection
             conn.readTimeout = 5000
             conn.requestMethod = "DELETE"
-
+            conn.setRequestProperty("token", token)
             val output = conn.outputStream
             output.write(json.toByteArray())
 

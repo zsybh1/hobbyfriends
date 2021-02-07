@@ -7,6 +7,7 @@ import com.zsybh1.hobbyfriends.Const
 import com.zsybh1.hobbyfriends.Holder.TopicDetailViewHolder
 import com.zsybh1.hobbyfriends.Model.Topic
 import com.zsybh1.hobbyfriends.Topic.TopicDetailViewModel
+import com.zsybh1.hobbyfriends.Utils.MessageUtil
 import com.zsybh1.hobbyfriends.Utils.NetUtil
 import org.json.JSONObject
 import kotlin.concurrent.thread
@@ -27,10 +28,16 @@ class TopicHeaderViewModel : ViewModel() {
         val ret = NetUtil.getRequest(url)
         if (ret != null && ret[0] == '{') {
             val response = JSONObject(ret)
+            val data = response.optString("data")
+            if (data == "null" || data == "过期" || data == "解析错误") {
+                result = -100
+                return
+            }
             val dataJson = response.getJSONObject("data")
             val contentArray = dataJson.getJSONArray("content")
             for (index in 0 until contentArray.length()) {
-                val topic = Gson().fromJson(contentArray.get(index).toString(), Topic::class.java)
+                val topic =
+                    Gson().fromJson(contentArray.get(index).toString(), Topic::class.java)
                 dataListTime.add(topic)
             }
             result = 200
@@ -50,6 +57,11 @@ class TopicHeaderViewModel : ViewModel() {
         val ret = NetUtil.getRequest(url)
         if (ret != null && ret[0] == '{') {
             val response = JSONObject(ret)
+            val data = response.optString("data")
+            if (data == "null" || data == "过期" || data == "解析错误") {
+                result = -100
+                return
+            }
             val dataJson = response.getJSONObject("data")
             val contentArray = dataJson.getJSONArray("content")
             for (index in 0 until contentArray.length()) {

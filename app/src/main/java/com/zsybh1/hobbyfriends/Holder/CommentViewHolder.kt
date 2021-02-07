@@ -20,13 +20,13 @@ import java.time.format.DateTimeFormatter
 
 class CommentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     fun bind(data: Comment, fragment:Fragment, topicId: Long) {
-        BitmapUtil.display(view.imProfile, data.headImg)
         view.replyLayout.visibility = View.GONE
         view.tvReply1.visibility = View.GONE
         view.tvReply2.visibility = View.GONE
         view.tvReply3.visibility = View.GONE
         view.tvMore.visibility = View.GONE
         view.imProfile.setImageResource(R.mipmap.default_image)
+        BitmapUtil.display(view.imProfile, data.headImg)
 
         view.setOnClickListener {
             val viewpager = fragment.requireActivity().vpTopic
@@ -45,7 +45,7 @@ class CommentViewHolder(private val view: View) : RecyclerView.ViewHolder(view) 
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val time = LocalDateTime.parse(data.sendDate, formatter)
         view.tvTime.text = TimeUtil.getRelativeTimeString(time)
-        view.tvComment.text = data.context.replace("\n", "\n\n")
+        view.tvComment.text = data.context
         view.tvSub.text = data.likes.toString()
         fun buildReply(index: Int) : String {
             val stringBuilder = StringBuilder()

@@ -13,6 +13,7 @@ import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.Adapter.InvitePageAdapter
 import com.zsybh1.hobbyfriends.R
+import com.zsybh1.hobbyfriends.Utils.MessageUtil
 import kotlinx.android.synthetic.main.fragment_my_joined.*
 import kotlinx.android.synthetic.main.fragment_time.*
 import kotlin.concurrent.thread
@@ -56,9 +57,7 @@ class MyJoinedFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshMyJoined.finishRefresh()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }
@@ -69,9 +68,7 @@ class MyJoinedFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshMyJoined.finishLoadMore()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }

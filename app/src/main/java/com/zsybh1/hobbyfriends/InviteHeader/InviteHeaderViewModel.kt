@@ -23,6 +23,11 @@ class InviteHeaderViewModel : ViewModel() {
         val ret = NetUtil.getRequest(url)
         if (ret != null && ret[0] == '{') {
             val response = JSONObject(ret)
+            val data = response.optString("data")
+            if (data == "null" || data == "过期" || data == "解析错误") {
+                result = -100
+                return
+            }
             val dataJson = response.getJSONObject("data")
             val contentArray = dataJson.getJSONArray("content")
             for (index in 0 until contentArray.length()) {

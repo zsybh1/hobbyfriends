@@ -21,6 +21,7 @@ class TopicDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(vi
         view.imageLayout.visibility = View.GONE
         view.imageLayout.removeAllViews()
         view.imProfile.setImageResource(R.mipmap.default_image)
+        view.tvContent.text = data.context
 
         if (data.headImg != null) {
             BitmapUtil.display(view.imProfile, data.headImg)
@@ -62,7 +63,6 @@ class TopicDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(vi
             view.tvTitle.visibility = View.VISIBLE
             view.tvTitle.text = data.title
         }
-        view.tvContent.text = data.context.replace("\n", "\n\n")
         view.tvComment.text = if (data.comments !=null) (data.comments.size).toString() else "0"
         view.tvSub.text = (data.likes?:0).toString()
         if (data.imgUrl.isNotEmpty()) {
@@ -71,13 +71,8 @@ class TopicDetailViewHolder(private val view: View) : RecyclerView.ViewHolder(vi
                 val imageView = ImageView(view.context)
                 val dm = view.resources.displayMetrics
                 val width = dm.widthPixels
-                BitmapUtil.display(imageView, url)
-                var bitmap = BitmapUtil.memoryCacheUtil.getBitmap(url)
-                if (bitmap == null) {
-                    bitmap = BitmapUtil.localCacheUtil.getBitmap(url)
-                }
-                val height = width *bitmap!!.height / bitmap.width
-                imageView.layoutParams = LinearLayout.LayoutParams(width,height)
+                val density = dm.density
+                BitmapUtil.display(imageView, url, (width - 16 * density).toInt())
                 imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                 view.imageLayout.addView(imageView)
             }

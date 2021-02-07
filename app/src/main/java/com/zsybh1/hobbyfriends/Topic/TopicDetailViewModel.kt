@@ -51,6 +51,11 @@ class TopicDetailViewModel : ViewModel() {
         val ret = NetUtil.getRequest(Const.apiHead + "/${type}/${topicId}")
         if (ret != null && ret[0] == '{') {
             val response = JSONObject(ret)
+            val data = response.optString("data")
+            if (data == "null" || data == "过期" || data == "解析错误") {
+                result = -100
+                return ""
+            }
             val dataJson = response.getJSONObject("data")
             result = 200
             return dataJson.toString()

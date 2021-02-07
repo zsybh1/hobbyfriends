@@ -12,6 +12,7 @@ import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.zsybh1.hobbyfriends.Adapter.TopicPageAdapter
 import com.zsybh1.hobbyfriends.R
+import com.zsybh1.hobbyfriends.Utils.MessageUtil
 import kotlinx.android.synthetic.main.fragment_recommend.*
 import kotlinx.android.synthetic.main.fragment_time.*
 import kotlin.concurrent.thread
@@ -52,9 +53,7 @@ class RecommendFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshRecommend.finishRefresh()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }
@@ -65,9 +64,7 @@ class RecommendFragment : Fragment() {
             requireActivity().runOnUiThread{
                 adapter.notifyDataSetChanged()
                 refreshRecommend.finishLoadMore()
-                if (viewModel.result == -1) {
-                    Toast.makeText(context, "网络异常", Toast.LENGTH_LONG).show()
-                }
+                MessageUtil.checkResult(viewModel.result, this)
             }
         }
     }
