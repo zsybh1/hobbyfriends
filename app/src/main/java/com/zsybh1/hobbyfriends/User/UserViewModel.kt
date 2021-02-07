@@ -47,7 +47,7 @@ class UserViewModel : ViewModel() {
             pageJoined = 0
             dataListJoined.clear()
         }
-        val url = Const.apiHead + "/me/${userId}/invites?size=${Const.pageSize}&page=${pageJoined}&sort=likes,desc"
+        val url = Const.apiHead + "/me/${userId}/joined?size=${Const.pageSize}&page=${pageJoined}&sort=likes,desc"
         val ret = NetUtil.getRequest(url)
         if (ret != null && ret[0] == '{') {
             val response = JSONObject(ret)

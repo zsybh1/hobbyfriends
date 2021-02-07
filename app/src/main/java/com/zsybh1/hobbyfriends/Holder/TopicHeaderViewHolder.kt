@@ -30,6 +30,7 @@ class TopicHeaderViewHolder(private val view : View) : RecyclerView.ViewHolder(v
         view.tvTitle.visibility = View.GONE
         view.imPicture.visibility = View.GONE
         view.imProfile.setImageResource(R.mipmap.default_image)
+        view.imPicture.setImageResource(R.mipmap.default_image)
 
 
         view.tvUsername.text =  data.username

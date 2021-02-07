@@ -23,6 +23,7 @@ class InviteHeaderViewHolder(private val view: View) : RecyclerView.ViewHolder(v
         view.tvTitle.visibility = View.GONE
         view.imPicture.visibility = View.GONE
         view.imProfile.setImageResource(R.mipmap.default_image)
+        view.imProfile.setImageResource(R.mipmap.default_image)
 
         var isliked = false
 

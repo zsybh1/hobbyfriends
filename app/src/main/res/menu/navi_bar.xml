@@ -3,14 +3,18 @@
 
     <item
         android:id="@+id/messageFragment"
+        android:icon="@drawable/ic_outline_mail_24"
         android:title="私信" />
     <item
         android:id="@+id/inviteFragment"
+        android:icon="@drawable/ic_baseline_directions_run_24"
         android:title="邀请" />
     <item
         android:id="@+id/topicFragment"
+        android:icon="@drawable/ic_baseline_adjust_24"
         android:title="校友圈" />
     <item
         android:id="@+id/userFragment"
+        android:icon="@drawable/ic_baseline_person_24"
         android:title="我" />
 </menu>
